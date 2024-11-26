@@ -1,0 +1,20 @@
+name: java_test_project
+on:
+  push:
+    branches:
+    - master
+  schedule:
+  - cron: "* 2 * * *"
+jobs:
+  build:
+    runs-on:
+      - ubuntu-latest
+    steps:
+    - name: clean workspace
+      shell: bash
+      run: rm -rf ${{ github.workspace }}/*
+    - name: checkout
+      uses: actions/checkout@v4.1.0
+    - name: run command
+      shell: bash
+      run: mvn -B -DskipTests clean package
